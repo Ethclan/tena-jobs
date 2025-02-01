@@ -7,7 +7,6 @@ window.addEventListener('load', () => {
 const follower = document.querySelector('.cursor-follower');
 const particlesContainer = document.querySelector('.particles');
 let mouseX = 0, mouseY = 0;
-let followerX = 0, followerY = 0;
 let particles = [];
 
 class Particle {
@@ -52,30 +51,27 @@ document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
     
-    // Add new particles
     if(particles.length < 30) {
         particles.push(new Particle(e.clientX, e.clientY));
     }
 });
 
-function updateFollower() {
-    followerX += (mouseX - followerX - 30) * 0.15;
-    followerY += (mouseY - followerY - 30) * 0.15;
-    follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
-    
+function animate() {
     particles.forEach(p => p.update());
-    requestAnimationFrame(updateFollower);
+    requestAnimationFrame(animate);
 }
-updateFollower();
+animate();
 
-// Job Search Functionality
+// Job Data
 const jobs = [
-    { title: "Medical Doctor", type: "Full-time / Remote" },
-    { title: "Lab Technician", type: "Contract / On-site" },
-    { title: "Pharmacist", type: "Part-time / Hybrid" },
+    { title: "Medical Doctor", type: "Full-time / Hospital" },
+    { title: "Lab Technician", type: "Contract / Laboratory" },
+    { title: "Pharmacist", type: "Full-time / Clinic" },
     { title: "BSC Nurse", type: "Full-time / Hospital" },
     { title: "Internist", type: "Full-time / Clinic" },
     { title: "Health Officer", type: "Contract / Field" },
+    { title: "Radiologist", type: "Coming Soon" },
+    { title: "Pediatrician", type: "Coming Soon" },
 ];
 
 const googleFormLink = "https://docs.google.com/forms/d/1I25qK4k8K_8AOpqbbqZ3vZjGKS6_0CNx2Z_LOrdU8GQ/edit";
@@ -91,6 +87,7 @@ function renderJobs(jobList) {
     `).join("");
 }
 
+// Search Functionality
 document.querySelector('.search-btn').addEventListener('click', () => {
     const term = document.getElementById('jobSearch').value.toLowerCase();
     const filtered = jobs.filter(job => 
@@ -99,26 +96,15 @@ document.querySelector('.search-btn').addEventListener('click', () => {
     renderJobs(filtered);
 });
 
-// Initial render
+// Initial Render
 renderJobs(jobs);
 
-// Hover Effects
-document.querySelectorAll('.job-card, .search-btn, .contact-btn').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        particles.push(new Particle(
-            mouseX + Math.random() * 20 - 10,
-            mouseY + Math.random() * 20 - 10
-        ));
+// Smooth Scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
     });
 });
-
-// Performance Optimization
-let lastFrame = 0;
-function optimizeParticles(now) {
-    if(now - lastFrame > 1000/60) {
-        lastFrame = now;
-        particles = particles.slice(-50); // Limit to 50 particles
-    }
-    requestAnimationFrame(optimizeParticles);
-}
-requestAnimationFrame(optimizeParticles);
