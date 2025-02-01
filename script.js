@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 });
 
-// Mouse Effects System
+// Particle System
 const particlesContainer = document.querySelector('.particles');
 let mouseX = 0, mouseY = 0;
 let particles = [];
@@ -17,10 +17,10 @@ class Particle {
         
         this.x = x;
         this.y = y;
-        this.size = Math.random() * 4 + 2;
-        this.speedX = (Math.random() - 0.5) * 3;
-        this.speedY = (Math.random() - 0.5) * 3;
-        this.life = Math.random() * 0.6 + 0.4;
+        this.size = Math.random() * 5 + 3;
+        this.speedX = (Math.random() - 0.5) * 2.5;
+        this.speedY = (Math.random() - 0.5) * 2.5;
+        this.life = Math.random() * 0.8 + 0.5;
     }
 
     update() {
@@ -34,7 +34,9 @@ class Particle {
             width: ${this.size}px;
             height: ${this.size}px;
             opacity: ${this.life};
-            background: hsl(${Math.random() * 360}, 70%, 60%);
+            background: radial-gradient(circle at 50% 50%, 
+                hsl(${Math.random() * 360}, 70%, 60%) 0%, 
+                transparent 70%);
         `;
         
         if(this.life < 0) {
@@ -52,7 +54,6 @@ document.addEventListener('mousemove', (e) => {
         mouseY = e.clientY;
         lastCall = now;
         
-        // Create particle trail
         for(let i = 0; i < 2; i++) {
             particles.push(new Particle(
                 mouseX + Math.random() * 20 - 10,
@@ -62,7 +63,7 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
-// Particle Animation Loop
+// Particle Animation
 function animate() {
     particles.forEach(p => p.update());
     requestAnimationFrame(animate);
@@ -102,8 +103,28 @@ document.querySelector('.search-btn').addEventListener('click', () => {
     renderJobs(filtered);
 });
 
-// Initialization
+// Initialize Jobs
 renderJobs(jobs);
+
+// Card Hover Effects
+document.querySelectorAll('.job-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        card.style.transform = `
+            perspective(1000px)
+            rotateX(${(y - rect.height/2)/15}deg)
+            rotateY(${-(x - rect.width/2)/15}deg)
+            translateZ(10px)
+        `;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'none';
+    });
+});
 
 // Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -1,46 +1,45 @@
 :root {
     --primary-blue: #2A5C8D;
     --secondary-blue: #6DAEDB;
-    --light-bg: rgba(240, 248, 255, 0.9);
     --accent-green: #4CAF50;
+    --text-light: #ffffff;
 }
 
 /* Base Styles */
-body {
-    font-family: 'Poppins', sans-serif;
+* {
+    box-sizing: border-box;
     margin: 0;
-    color: var(--primary-blue);
-    overflow-x: hidden;
+    padding: 0;
 }
 
-/* 3D Background */
-.sketchfab-embed-wrapper {
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--primary-blue);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Medical Background */
+.medical-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     z-index: -1;
-    opacity: 0.4;
-    filter: blur(2px);
-    pointer-events: none;
-}
-
-.sketchfab-embed-wrapper iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    pointer-events: none !important;
+    background: url('icons/medical-bg.jpg') center/cover;
+    filter: brightness(0.4);
 }
 
 /* Header Styles */
 header {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     padding: 1rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    backdrop-filter: blur(5px);
     position: sticky;
     top: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
 }
 
 nav {
@@ -53,12 +52,12 @@ nav {
 }
 
 .header-logo {
-    height: 45px;
+    height: 55px;
     transition: transform 0.3s ease;
 }
 
 .header-logo:hover {
-    transform: rotate(-5deg);
+    transform: rotate(-5deg) scale(1.05);
 }
 
 .nav-links {
@@ -87,8 +86,8 @@ nav {
 }
 
 .main-logo {
-    width: min(90%, 400px);
-    margin-bottom: 2rem;
+    width: min(80%, 350px);
+    margin-bottom: 3rem;
     animation: float 3s ease-in-out infinite;
 }
 
@@ -102,6 +101,12 @@ nav {
     margin-bottom: 1.5rem;
     font-weight: 600;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.inspiration-quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    opacity: 0.9;
 }
 
 /* Search Section */
@@ -154,4 +159,232 @@ nav {
     box-shadow: 0 5px 20px rgba(76,175,80,0.3);
 }
 
-/* ... (Continue with rest of previous styles) ... */
+/* Job Listings */
+.services {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.job-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.job-card {
+    background: rgba(255,255,255,0.97);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.job-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.apply-btn {
+    background: var(--accent-green);
+    color: var(--text-light);
+    padding: 12px 25px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+}
+
+.apply-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* About Section */
+.about-section {
+    padding: 4rem 2rem;
+    background: rgba(255,255,255,0.95);
+}
+
+.about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(42,92,141,0.1);
+    border-radius: 10px;
+}
+
+.stat-item h3 {
+    color: var(--primary-blue);
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem;
+}
+
+.highlight-quote {
+    font-size: 1.3rem;
+    border-left: 4px solid var(--accent-green);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+}
+
+/* Contact Section */
+footer {
+    background: rgba(42,92,141,0.95);
+    color: white;
+    padding: 3rem 1rem;
+    margin-top: 4rem;
+    backdrop-filter: blur(5px);
+}
+
+.contact-info {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.contact-item {
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
+}
+
+.contact-item i {
+    font-size: 2rem;
+    color: var(--accent-green);
+    margin-bottom: 1rem;
+}
+
+.contact-item a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.contact-item a:hover {
+    opacity: 0.8;
+}
+
+.copyright {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* Call Now Button */
+.call-now {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: var(--accent-green);
+    color: white;
+    padding: 15px 35px;
+    border-radius: 35px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(76,175,80,0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.call-now:hover {
+    transform: scale(1.08);
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-blue);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loaded .loading-screen {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Particles */
+.particles {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9997;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .header-logo {
+        height: 40px;
+    }
+
+    .welcome-text {
+        font-size: 2rem;
+    }
+
+    .search-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .search-btn {
+        justify-content: center;
+    }
+}
