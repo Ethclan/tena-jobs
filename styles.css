@@ -23,36 +23,17 @@ body {
     z-index: -1;
     opacity: 0.4;
     filter: blur(2px);
+    pointer-events: none;
 }
 
 .sketchfab-embed-wrapper iframe {
     width: 100%;
     height: 100%;
     border: none;
+    pointer-events: none !important;
 }
 
-/* Mouse Effects */
-.cursor-follower {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle, var(--secondary-blue) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    mix-blend-mode: multiply;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    filter: blur(15px);
-    opacity: 0.3;
-}
-
-.particles {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9997;
-}
-
-/* Navigation */
+/* Header Styles */
 header {
     background: rgba(255, 255, 255, 0.9);
     padding: 1rem;
@@ -71,16 +52,13 @@ nav {
     padding: 0 20px;
 }
 
-.logo-link {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--primary-blue);
-    text-decoration: none;
-    transition: opacity 0.3s ease;
+.header-logo {
+    height: 45px;
+    transition: transform 0.3s ease;
 }
 
-.logo-link:hover {
-    opacity: 0.8;
+.header-logo:hover {
+    transform: rotate(-5deg);
 }
 
 .nav-links {
@@ -108,6 +86,17 @@ nav {
     color: white;
 }
 
+.main-logo {
+    width: min(90%, 400px);
+    margin-bottom: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
 .welcome-text {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
@@ -115,82 +104,54 @@ nav {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.inspiration-quote {
-    font-size: 1.2rem;
-    font-style: italic;
-    opacity: 0.9;
+/* Search Section */
+.search-section {
+    padding: 4rem 1rem;
 }
 
-/* Job Listings */
-.services {
-    padding: 4rem 2rem;
-    max-width: 1200px;
+.search-container {
+    max-width: 800px;
     margin: 0 auto;
-}
-
-.job-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    padding: 20px;
-}
-
-.job-card {
+    display: flex;
+    gap: 15px;
     background: rgba(255,255,255,0.9);
-    padding: 1.5rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 25px;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     backdrop-filter: blur(5px);
+}
+
+#jobSearch {
+    flex: 1;
+    padding: 18px 30px;
+    border: 2px solid var(--primary-blue);
+    border-radius: 30px;
+    font-size: 1.2rem;
     transition: all 0.3s ease;
 }
 
-.job-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+#jobSearch:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(42,92,141,0.3);
 }
 
-/* Contact Section */
-.contact-info {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 1rem;
-    text-align: center;
-}
-
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-}
-
-.contact-item {
-    background: rgba(255,255,255,0.1);
-    padding: 1.5rem;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-}
-
-.contact-item:hover {
-    transform: translateY(-5px);
-}
-
-.contact-item i {
-    font-size: 2rem;
-    color: var(--accent-green);
-    margin-bottom: 1rem;
-}
-
-.contact-item a {
+.search-btn {
+    background: var(--accent-green);
     color: white;
-    text-decoration: none;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
 }
 
-.copyright {
-    margin-top: 3rem;
-    font-size: 0.9rem;
-    opacity: 0.7;
-    letter-spacing: 0.5px;
+.search-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(76,175,80,0.3);
 }
 
-/* ... (Keep all other existing styles from previous version) ... */
+/* ... (Continue with rest of previous styles) ... */

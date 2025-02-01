@@ -3,11 +3,11 @@ window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 });
 
-// Mouse Effects
-const follower = document.querySelector('.cursor-follower');
+// Mouse Effects System
 const particlesContainer = document.querySelector('.particles');
 let mouseX = 0, mouseY = 0;
 let particles = [];
+let lastCall = 0;
 
 class Particle {
     constructor(x, y) {
@@ -18,17 +18,15 @@ class Particle {
         this.x = x;
         this.y = y;
         this.size = Math.random() * 4 + 2;
-        this.speedX = Math.random() * 4 - 2;
-        this.speedY = Math.random() * 4 - 2;
-        this.life = 1;
-        
-        this.update();
+        this.speedX = (Math.random() - 0.5) * 3;
+        this.speedY = (Math.random() - 0.5) * 3;
+        this.life = Math.random() * 0.6 + 0.4;
     }
 
     update() {
-        this.life -= 0.02;
-        this.x += this.speedX;
-        this.y += this.speedY;
+        this.life -= 0.008;
+        this.x += this.speedX + (mouseX - this.x) * 0.03;
+        this.y += this.speedY + (mouseY - this.y) * 0.03;
         
         this.el.style.cssText = `
             left: ${this.x}px;
@@ -48,21 +46,30 @@ class Particle {
 
 // Mouse Tracking
 document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    
-    if(particles.length < 30) {
-        particles.push(new Particle(e.clientX, e.clientY));
+    const now = Date.now();
+    if(now - lastCall > 10) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        lastCall = now;
+        
+        // Create particle trail
+        for(let i = 0; i < 2; i++) {
+            particles.push(new Particle(
+                mouseX + Math.random() * 20 - 10,
+                mouseY + Math.random() * 20 - 10
+            ));
+        }
     }
 });
 
+// Particle Animation Loop
 function animate() {
     particles.forEach(p => p.update());
     requestAnimationFrame(animate);
 }
 animate();
 
-// Job Data
+// Job Data and Filtering
 const jobs = [
     { title: "Medical Doctor", type: "Full-time / Hospital" },
     { title: "Lab Technician", type: "Contract / Laboratory" },
@@ -87,7 +94,6 @@ function renderJobs(jobList) {
     `).join("");
 }
 
-// Search Functionality
 document.querySelector('.search-btn').addEventListener('click', () => {
     const term = document.getElementById('jobSearch').value.toLowerCase();
     const filtered = jobs.filter(job => 
@@ -96,7 +102,7 @@ document.querySelector('.search-btn').addEventListener('click', () => {
     renderJobs(filtered);
 });
 
-// Initial Render
+// Initialization
 renderJobs(jobs);
 
 // Smooth Scroll
@@ -107,4 +113,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             behavior: 'smooth'
         });
     });
+});
+
+// Performance Optimization
+window.addEventListener('blur', () => {
+    particles = [];
+    document.querySelectorAll('.particle').forEach(p => p.remove());
 });
